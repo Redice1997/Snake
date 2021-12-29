@@ -12,20 +12,27 @@ namespace Snake
 {
     public partial class Form1 : Form
     {
-        const int WIDTH = 900;
-        const int HEIGHT = 800;
-        
+        private const int WIDTH = 900;
+        private const int HEIGHT = 800;
+
+        private int dirX = 0, dirY = 0;
+        private int sizeOfSides = 40;
+
         public Form1()
         {
             InitializeComponent();
             this.Width = WIDTH;
             this.Height = HEIGHT;
             GenerateMap();
-            KeyDown += new KeyEventHandler(MoveCube);
-        }
+            timer.Tick += new EventHandler(DoNextStep);
+            timer.Interval = 500;
+            timer.Start();
+            KeyDown += new KeyEventHandler(MoveCube);            
+        }              
+        
         private void GenerateMap()
         {
-            for (int i = 0; i <= Height / Cube.Size.Height; i++)
+            for (int i = 0; i <= Height / sizeOfSides; i++)
             {
                 PictureBox blackLine = new PictureBox();
                 blackLine.BackColor = Color.Black;
@@ -33,7 +40,7 @@ namespace Snake
                 blackLine.Size = new Size(1, Height);
                 Controls.Add(blackLine);
             }
-            for (int i = 0; i < Height / Cube.Size.Height; i++)
+            for (int i = 0; i < Height / sizeOfSides; i++)
             {
                 PictureBox blackLine = new PictureBox();
                 blackLine.BackColor = Color.Black;
@@ -43,21 +50,30 @@ namespace Snake
             }
         }
 
+        private void DoNextStep(object sender, EventArgs e)
+        {
+            Cube.Location = new Point(Cube.Location.X + sizeOfSides * dirX, Cube.Location.Y + sizeOfSides * dirY);
+        }
+
         private void MoveCube(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode.ToString())
             {
                 case "Up":
-                    Cube.Location = new Point(Cube.Location.X, Cube.Location.Y - 40);
+                    dirY = -1;
+                    dirX = 0;
                     break;
                 case "Down":
-                    Cube.Location = new Point(Cube.Location.X, Cube.Location.Y + 40);
+                    dirY = 1;
+                    dirX = 0;
                     break;
                 case "Left":
-                    Cube.Location = new Point(Cube.Location.X - 40, Cube.Location.Y);
+                    dirY = 0;
+                    dirX = -1;
                     break;
                 case "Right":
-                    Cube.Location = new Point(Cube.Location.X + 40, Cube.Location.Y);
+                    dirY = 0;
+                    dirX = 1;
                     break;
             }
         }

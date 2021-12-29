@@ -29,7 +29,9 @@ namespace Snake
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Cube = new System.Windows.Forms.PictureBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Cube)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +48,7 @@ namespace Snake
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(384, 361);
             this.Controls.Add(this.Cube);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -58,6 +60,7 @@ namespace Snake
         #endregion
 
         private System.Windows.Forms.PictureBox Cube;
+        private System.Windows.Forms.Timer timer;
     }
 }
 
