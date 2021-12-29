@@ -36,7 +36,7 @@ namespace Snake
             // Cube
             // 
             this.Cube.BackColor = System.Drawing.SystemColors.Highlight;
-            this.Cube.Location = new System.Drawing.Point(261, 126);
+            this.Cube.Location = new System.Drawing.Point(0, 0);
             this.Cube.Name = "Cube";
             this.Cube.Size = new System.Drawing.Size(40, 40);
             this.Cube.TabIndex = 0;
