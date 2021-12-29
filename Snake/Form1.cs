@@ -15,6 +15,27 @@ namespace Snake
         public Form1()
         {
             InitializeComponent();
+            KeyDown += new KeyEventHandler(MoveCube);
         }
+
+        private void MoveCube(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode.ToString())
+            {
+                case "Up":
+                    Cube.Location = new Point(Cube.Location.X, Cube.Location.Y - 20);
+                    break;
+                case "Down":
+                    Cube.Location = new Point(Cube.Location.X, Cube.Location.Y + 20);
+                    break;
+                case "Left":
+                    Cube.Location = new Point(Cube.Location.X - 20, Cube.Location.Y);
+                    break;
+                case "Right":
+                    Cube.Location = new Point(Cube.Location.X + 20, Cube.Location.Y);
+                    break;
+            }
+        }
+       
     }
 }
