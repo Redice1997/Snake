@@ -34,7 +34,7 @@ namespace Snake
 
             timer.Tick += new EventHandler(MoveSnake);
             timer.Tick += new EventHandler(FindFruit);
-            timer.Interval = 500;
+            timer.Interval = 300;
             timer.Start();
 
             KeyDown += new KeyEventHandler(SetNewDir);            
@@ -64,13 +64,12 @@ namespace Snake
         
 
         private void MoveSnake(object sender, EventArgs e)
-        {
-            Point nextStep = new Point(snakeHead.Location.X + sizeOfSides * dirX, snakeHead.Location.Y + sizeOfSides * dirY);            
-            for (int i = 1; i < snake.Count; i++)
+        {            
+            for (int i = snake.Count - 1; i > 0; i--)
             {
                 snake[i].Location = snake[i - 1].Location;
             }
-            snakeHead.Location = nextStep;
+            snakeHead.Location = new Point(snakeHead.Location.X + sizeOfSides * dirX, snakeHead.Location.Y + sizeOfSides * dirY);
         }
 
         //private void MoveCube(object sender, EventArgs e)
@@ -87,10 +86,11 @@ namespace Snake
         {            
             GenerateFruit();
             PictureBox body = new PictureBox();
-            body.Size = new Size(40, 40);
+            body.Size = new Size(sizeOfSides, sizeOfSides);
             body.BackColor = snakeHead.BackColor;
             body.Location = snake[snake.Count - 1].Location;
             snake.Add(body);
+            Controls.Add(body);
             score++;
             labelScore.Text = $"Счёт: {score}";            
         }

@@ -40,6 +40,7 @@ namespace Snake
             // 
             // snakeHead
             // 
+            this.snakeHead.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.snakeHead.BackColor = System.Drawing.SystemColors.Highlight;
             this.snakeHead.Location = new System.Drawing.Point(0, 0);
             this.snakeHead.Name = "snakeHead";
