@@ -28,16 +28,15 @@ namespace Snake
         private short score = 0;
 
         private bool DirCanChange = false;
-        private int interval = 200;
+        private int interval = 300;
 
         public Form1()
         {
             InitializeComponent();
+
             this.Width = WIDTH;
             this.Height = HEIGHT;
-
             snake.Add(snakeHead);
-
             GenerateMap();            
 
             timer.Tick += new EventHandler(MoveSnake);
@@ -161,7 +160,8 @@ namespace Snake
                         }
                         break;
                 }            
-        }      
+        }
+                
 
         private void GenerateMap()
         {

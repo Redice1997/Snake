@@ -51,7 +51,7 @@ namespace Snake
             // fruit
             // 
             this.fruit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.fruit.Location = new System.Drawing.Point(0, 40);
+            this.fruit.Location = new System.Drawing.Point(80, 80);
             this.fruit.Name = "fruit";
             this.fruit.Size = new System.Drawing.Size(40, 40);
             this.fruit.TabIndex = 1;
@@ -76,6 +76,7 @@ namespace Snake
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.fruit);
             this.Controls.Add(this.snakeHead);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.snakeHead)).EndInit();
