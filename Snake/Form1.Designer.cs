@@ -60,10 +60,10 @@ namespace Snake
             // labelScore
             // 
             this.labelScore.AutoSize = true;
-            this.labelScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelScore.Location = new System.Drawing.Point(810, 10);
+            this.labelScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelScore.Location = new System.Drawing.Point(770, 10);
             this.labelScore.Name = "labelScore";
-            this.labelScore.Size = new System.Drawing.Size(63, 17);
+            this.labelScore.Size = new System.Drawing.Size(88, 25);
             this.labelScore.TabIndex = 2;
             this.labelScore.Text = "Счёт: 0";
             this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
