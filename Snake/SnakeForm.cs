@@ -24,13 +24,12 @@ namespace Snake
         private int dirX = 0, dirY = 0;
         private int sizeOfSides = 40;
         private int record;
+        private int score = 0;
+        private int interval = 300;        
 
-        private List<PictureBox> snake = new List<PictureBox>();
+        private List<PictureBox> snake = new List<PictureBox>();        
 
-        private short score = 0;
-
-        private bool DirCanChange = false;
-        private int interval = 300;
+        private bool DirCanChange = false;        
 
         string path = Path.Combine(Environment.CurrentDirectory, "Record.txt");
 
@@ -45,15 +44,25 @@ namespace Snake
             labelRecord.Text = $"Рекорд: {record}";
             this.Width = WIDTH;
             this.Height = HEIGHT;
+
             snake.Add(snakeHead);
+
             GenerateMap();            
 
             timer.Tick += new EventHandler(_Update);
             timer.Interval = interval;
             timer.Start();            
 
-            KeyDown += new KeyEventHandler(SetNewDir);          
-            
+            KeyDown += new KeyEventHandler(SetNewDir);
+            KeyUp += new KeyEventHandler(StopCount);            
+        }
+        private void StopCount(object sender, KeyEventArgs e)
+        {
+            string code = e.KeyCode.ToString();
+            if (code != "Up" && code != "Left" && code != "Right" && code != "Down")
+            {                
+                timer.Interval = 300;
+            }
         }
         
         private void _Update(object sender, EventArgs e)
@@ -70,7 +79,8 @@ namespace Snake
                     output.Write(record);
                 }
             }
-            labelRecord.Text = $"Рекорд: {record}";
+            labelRecord.Text = $"Рекорд: {record}";           
+
         }
         
         private void GenerateFruit()
@@ -93,8 +103,7 @@ namespace Snake
             }           
             
             fruit.Location = point;
-        }     
-        
+        }            
         
         private void MoveSnake()
         {            
@@ -112,7 +121,6 @@ namespace Snake
 
             snakeHead.Location = location;            
         }
-
         private void EatSmth()
         {
             if (fruit.Location == snakeHead.Location) EatFruit();
@@ -125,8 +133,6 @@ namespace Snake
                         score--;
                     }                
         }
-
-
         private void EatFruit()
         {            
             GenerateFruit();
@@ -138,10 +144,9 @@ namespace Snake
             Controls.Add(body);
             score++;                        
         }               
-
         private void SetNewDir(object sender, KeyEventArgs e)
-        {
-            if (DirCanChange)
+        {            
+            if (DirCanChange)                            
                 switch (e.KeyCode.ToString())
                 {
                     case "Up":
@@ -149,16 +154,16 @@ namespace Snake
                         {
                             dirY = -1;
                             dirX = 0;
-                            DirCanChange = false;                            
-                        }                    
+                            DirCanChange = false;
+                        }
                         break;
                     case "Down":
                         if (dirY != -1)
                         {
                             dirY = 1;
                             dirX = 0;
-                            DirCanChange = false;                            
-                        }                    
+                            DirCanChange = false;
+                        }
                         break;
                     case "Left":
                         if (dirX != 1)
@@ -166,7 +171,7 @@ namespace Snake
                             dirY = 0;
                             dirX = -1;
                             DirCanChange = false;
-                        }                    
+                        }
                         break;
                     case "Right":
                         if (dirX != -1)
@@ -176,9 +181,12 @@ namespace Snake
                             DirCanChange = false;
                         }
                         break;
-                }            
+                    default:
+                        timer.Interval = 80;
+                        break;
+                }
+            
         }
-
 
         private void GenerateMap()
         {
