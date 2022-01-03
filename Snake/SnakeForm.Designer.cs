@@ -34,6 +34,7 @@ namespace Snake
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.fruit = new System.Windows.Forms.PictureBox();
             this.labelScore = new System.Windows.Forms.Label();
+            this.labelRecord = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.snakeHead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fruit)).BeginInit();
             this.SuspendLayout();
@@ -61,24 +62,36 @@ namespace Snake
             // 
             this.labelScore.AutoSize = true;
             this.labelScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelScore.Location = new System.Drawing.Point(770, 10);
+            this.labelScore.Location = new System.Drawing.Point(773, 9);
             this.labelScore.Name = "labelScore";
             this.labelScore.Size = new System.Drawing.Size(88, 25);
             this.labelScore.TabIndex = 2;
             this.labelScore.Text = "Счёт: 0";
             this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // labelRecord
+            // 
+            this.labelRecord.AutoSize = true;
+            this.labelRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelRecord.Location = new System.Drawing.Point(762, 727);
+            this.labelRecord.Name = "labelRecord";
+            this.labelRecord.Size = new System.Drawing.Size(110, 25);
+            this.labelRecord.TabIndex = 3;
+            this.labelRecord.Text = "Рекорд: 0";
+            this.labelRecord.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 761);
+            this.Controls.Add(this.labelRecord);
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.fruit);
             this.Controls.Add(this.snakeHead);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Змейка";
             ((System.ComponentModel.ISupportInitialize)(this.snakeHead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fruit)).EndInit();
             this.ResumeLayout(false);
@@ -92,6 +105,7 @@ namespace Snake
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.PictureBox fruit;
         private System.Windows.Forms.Label labelScore;
+        private System.Windows.Forms.Label labelRecord;
     }
 }
 

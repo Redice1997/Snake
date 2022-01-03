@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,6 +23,7 @@ namespace Snake
         
         private int dirX = 0, dirY = 0;
         private int sizeOfSides = 40;
+        private int record;
 
         private List<PictureBox> snake = new List<PictureBox>();
 
@@ -30,24 +32,46 @@ namespace Snake
         private bool DirCanChange = false;
         private int interval = 300;
 
-        public Form1()
-        {
-            InitializeComponent();
+        string path = Path.Combine(Environment.CurrentDirectory, "Record.txt");
 
+        public Form1()
+        { 
+            InitializeComponent();            
+
+            using (FileStream file = new FileStream(path, FileMode.OpenOrCreate))            
+                using (StreamReader input = new StreamReader(file))                
+                    record = int.Parse(input.ReadLine() ?? "0");                
+            
+            labelRecord.Text = $"Рекорд: {record}";
             this.Width = WIDTH;
             this.Height = HEIGHT;
             snake.Add(snakeHead);
             GenerateMap();            
 
-            timer.Tick += new EventHandler(MoveSnake);
-            timer.Tick += new EventHandler(EatSmth);
-            timer.Tick += new EventHandler(GiveOpportunityToChange);
+            timer.Tick += new EventHandler(_Update);
             timer.Interval = interval;
             timer.Start();            
 
             KeyDown += new KeyEventHandler(SetNewDir);          
             
-        }  
+        }
+        
+        private void _Update(object sender, EventArgs e)
+        {
+            MoveSnake();
+            EatSmth();
+            DirCanChange = true;
+            labelScore.Text = $"Счёт: {score}";
+            if (score > record)
+            {
+                record = score;                
+                using (StreamWriter output = new StreamWriter(path))
+                {
+                    output.Write(record);
+                }
+            }
+            labelRecord.Text = $"Рекорд: {record}";
+        }
         
         private void GenerateFruit()
         {
@@ -72,7 +96,7 @@ namespace Snake
         }     
         
         
-        private void MoveSnake(object sender, EventArgs e)
+        private void MoveSnake()
         {            
             for (int i = snake.Count - 1; i > 0; i--)
             {
@@ -86,12 +110,10 @@ namespace Snake
             if (location.X < xMin) location.X = yMax;
             if (location.Y < yMin) location.Y = yMax;
 
-            snakeHead.Location = location; 
-
-            labelScore.Text = $"Счёт: {score}";
+            snakeHead.Location = location;            
         }
 
-        private void EatSmth(object sender, EventArgs e)
+        private void EatSmth()
         {
             if (fruit.Location == snakeHead.Location) EatFruit();
             for (int i = 2; i < snake.Count; i++)
@@ -115,12 +137,7 @@ namespace Snake
             snake.Add(body);
             Controls.Add(body);
             score++;                        
-        }
-
-        private void GiveOpportunityToChange(object sender, EventArgs e)
-        {
-            DirCanChange = true;
-        }
+        }               
 
         private void SetNewDir(object sender, KeyEventArgs e)
         {
@@ -161,7 +178,7 @@ namespace Snake
                         break;
                 }            
         }
-                
+
 
         private void GenerateMap()
         {
