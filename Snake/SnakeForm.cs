@@ -54,14 +54,14 @@ namespace Snake
             timer.Start();            
 
             KeyDown += new KeyEventHandler(SetNewDir);
-            KeyUp += new KeyEventHandler(StopCount);            
+            KeyUp += new KeyEventHandler(StopExceed);            
         }
-        private void StopCount(object sender, KeyEventArgs e)
+        private void StopExceed(object sender, KeyEventArgs e)
         {
             string code = e.KeyCode.ToString();
             if (code != "Up" && code != "Left" && code != "Right" && code != "Down")
             {                
-                timer.Interval = 300;
+                timer.Interval = interval;
             }
         }
         
