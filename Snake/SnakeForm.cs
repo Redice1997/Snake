@@ -124,14 +124,15 @@ namespace Snake
         private void EatSmth()
         {
             if (fruit.Location == snakeHead.Location) EatFruit();
-            for (int i = 2; i < snake.Count; i++)
-                if (snakeHead.Location == snake[i].Location)                
-                    for (int j = snake.Count - 1; j >= i; j--)
-                    {                        
-                        Controls.Remove(snake[j]);
-                        snake.Remove(snake[j]);
-                        score--;
-                    }                
+            else
+                for (int i = 2; i < snake.Count; i++)
+                    if (snakeHead.Location == snake[i].Location)                
+                        for (int j = snake.Count - 1; j >= i; j--)
+                        {                        
+                            Controls.Remove(snake[j]);
+                            snake.Remove(snake[j]);
+                            score--;
+                        }                
         }
         private void EatFruit()
         {            
