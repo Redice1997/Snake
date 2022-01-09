@@ -70,7 +70,9 @@ namespace Snake
             MoveSnake();
             EatSmth();
             DirCanChange = true;
-            labelScore.Text = $"Счёт: {score}";
+            if (score > 100) labelScore.Text = "Счёт: **";
+            else labelScore.Text = $"Счёт: {score}";
+
             if (score > record)
             {
                 record = score;                
@@ -79,7 +81,8 @@ namespace Snake
                     output.Write(record);
                 }
             }
-            labelRecord.Text = $"Рекорд: {record}";           
+            if (record > 100) labelRecord.Text = "Рекорд: **";
+            else labelRecord.Text = $"Рекорд: {record}";           
 
         }
         
