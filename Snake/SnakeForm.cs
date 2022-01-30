@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
+
 
 namespace Snake
 {
@@ -81,6 +81,7 @@ namespace Snake
                     output.Write(record);
                 }
             }
+
             if (record > 100) labelRecord.Text = "Рекорд: **";
             else labelRecord.Text = $"Рекорд: {record}";           
 
