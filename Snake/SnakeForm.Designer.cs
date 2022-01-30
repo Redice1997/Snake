@@ -92,6 +92,7 @@ namespace Snake
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.Text = "Змейка";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.snakeHead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fruit)).EndInit();
             this.ResumeLayout(false);

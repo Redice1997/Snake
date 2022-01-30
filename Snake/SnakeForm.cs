@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Microsoft.Win32;
 
 namespace Snake
 {
@@ -29,17 +29,20 @@ namespace Snake
 
         private List<PictureBox> snake = new List<PictureBox>();        
 
-        private bool DirCanChange = false;        
+        private bool DirCanChange = false; 
 
-        string path = Path.Combine(Environment.CurrentDirectory, "Record.txt");
+        RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Snake");
 
         public Form1()
         { 
-            InitializeComponent();            
+            InitializeComponent();
 
-            using (FileStream file = new FileStream(path, FileMode.OpenOrCreate))            
-                using (StreamReader input = new StreamReader(file))                
-                    record = int.Parse(input.ReadLine() ?? "0");                
+            if (key.GetValue("Record") != null)
+            {
+                string str = key.GetValue("Record").ToString();
+                record = int.Parse(str);
+            }              
+                    
             
             labelRecord.Text = $"Рекорд: {record}";
             this.Width = WIDTH;
@@ -73,14 +76,9 @@ namespace Snake
             if (score > 100) labelScore.Text = "Счёт: **";
             else labelScore.Text = $"Счёт: {score}";
 
-            if (score > record)
-            {
-                record = score;                
-                using (StreamWriter output = new StreamWriter(path))
-                {
-                    output.Write(record);
-                }
-            }
+            if (score > record)          
+                record = score;
+            
 
             if (record > 100) labelRecord.Text = "Рекорд: **";
             else labelRecord.Text = $"Рекорд: {record}";           
@@ -191,6 +189,11 @@ namespace Snake
                         break;
                 }
             
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            key.SetValue("Record", record);
         }
 
         private void GenerateMap()
