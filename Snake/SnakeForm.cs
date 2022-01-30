@@ -31,17 +31,18 @@ namespace Snake
 
         private bool DirCanChange = false; 
 
-        RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Snake");
+        
 
         public Form1()
         { 
             InitializeComponent();
 
-            if (key.GetValue("Record") != null)
-            {
-                string str = key.GetValue("Record").ToString();
-                record = int.Parse(str);
-            }              
+            using (RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Snake"))
+                if (key.GetValue("Record") != null)
+                {
+                    string str = key.GetValue("Record").ToString();
+                    record = int.Parse(str);
+                }              
                     
             
             labelRecord.Text = $"Рекорд: {record}";
@@ -193,7 +194,8 @@ namespace Snake
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            key.SetValue("Record", record);
+            using (RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Snake"))
+                key.SetValue("Record", record);
         }
 
         private void GenerateMap()
